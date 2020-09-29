@@ -8,15 +8,16 @@ error_reporting(E_ALL);
 
 $pokemonName=$_GET['name'];
 
-if($pokemonName==null){$dataPokemon = file_get_contents("https://pokeapi.co/api/v2/pokemon/1");}
-else{$dataPokemon = file_get_contents("https://pokeapi.co/api/v2/pokemon/$pokemonName");}
-echo $pokemonName;
+if($pokemonName==''){$dataPokemon = file_get_contents("https://pokeapi.co/api/v2/pokemon/1");}
+else{$dataPokemon = file_get_contents("https://pokeapi.co/api/v2/pokemon/".$pokemonName);}
 
 
-//echo $dataPokemon;
 $decodeData= json_decode($dataPokemon, true);
 
-//$pokemonId=$decodeData.id;
+$pokemonId=$decodeData['id'];
+$pokemonImg=$decodeData['sprites']['front_shiny'];
+echo $pokemonImg;
+
 var_dump($decodeData);
 
 
@@ -37,5 +38,9 @@ var_dump($decodeData);
     <p>Pokemon: <input type="text" name="name" /></p>
     <p><input type="submit" value="OK"></p>
 </form>
+<section>
+    <p><?php echo "Pokemon Id :".$pokemonId; ?></p>
+    <img src="<?php echo $pokemonImg; ?>" alt="pokemon image">
+</section>
 </body>
 </html>
