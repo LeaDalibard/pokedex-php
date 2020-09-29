@@ -20,9 +20,19 @@ $decodeData= json_decode($dataPokemon, true);
 $pokemonName=$decodeData['name'];
 $pokemonId=$decodeData['id'];
 $pokemonImg=$decodeData['sprites']['front_shiny'];
-echo $pokemonName;
 
-//var_dump($decodeData);
+$numberMove=4;
+$randomMove=array();
+
+//$pokemonMove=$decodeData['moves'][$randomNumber]['move']['name'];
+
+for ($i = 0; $i < $numberMove; $i++) {
+    $randomNumber = rand(0, count($decodeData['moves']));
+    array_push($randomMove, $decodeData['moves'][$randomNumber]['move']['name']);
+}
+
+
+var_dump($randomMove);
 
 
 ?>
