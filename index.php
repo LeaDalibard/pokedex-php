@@ -34,8 +34,10 @@ for ($i = 0; $i < $numberMove; $i++) {
     array_push($randomMove, $decodeData['moves'][$randomNumber]['move']['name']);
 }
 
-
-var_dump($randomMove);
+$uniqueMoves = array_unique($randomMove);
+$stringMoves = implode(", ", $uniqueMoves);
+//var_dump($uniqueMoves);
+echo $stringMoves;
 
 
 ?>
@@ -58,6 +60,7 @@ var_dump($randomMove);
 <section>
     <p><?php echo "Pokemon :".$pokemonName; ?></p>
     <p><?php echo "Pokemon Id :".$pokemonId; ?></p>
+    <p><?php echo "Moves :".$stringMoves; ?></p>
     <img src="<?php echo $pokemonImg; ?>" alt="pokemon image">
 </section>
 </body>
