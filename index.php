@@ -21,13 +21,16 @@ $pokemonName=$decodeData['name'];
 $pokemonId=$decodeData['id'];
 $pokemonImg=$decodeData['sprites']['front_shiny'];
 
-$numberMove=4;
+
 $randomMove=array();
-
+$maxMove=4;
 //$pokemonMove=$decodeData['moves'][$randomNumber]['move']['name'];
-
+if(count($decodeData['moves'])<$maxMove){
+    $numberMove=count($decodeData['moves']);
+}
+else($numberMove=$maxMove);
 for ($i = 0; $i < $numberMove; $i++) {
-    $randomNumber = rand(0, count($decodeData['moves']));
+    $randomNumber = rand(0, count($decodeData['moves'])-1);
     array_push($randomMove, $decodeData['moves'][$randomNumber]['move']['name']);
 }
 
