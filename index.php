@@ -37,9 +37,12 @@ for ($i = 0; $i < $numberMove; $i++) {
 $uniqueMoves = array_unique($randomMove);
 $stringMoves = implode(", ", $uniqueMoves);
 //var_dump($uniqueMoves);
-echo $stringMoves;
+//echo $stringMoves;
 
-
+$Species = file_get_contents("https://pokeapi.co/api/v2/pokemon-species/".$pokemon);
+$dataSpecies= json_decode($Species, true);
+$evoUrl=$dataSpecies['evolution_chain']['url'];
+var_dump($evoUrl);
 ?>
 
 
