@@ -41,8 +41,14 @@ $stringMoves = implode(", ", $uniqueMoves);
 
 $Species = file_get_contents("https://pokeapi.co/api/v2/pokemon-species/".$pokemon);
 $dataSpecies= json_decode($Species, true);
-$evoUrl=$dataSpecies['evolution_chain']['url'];
-var_dump($evoUrl);
+$chainUrl=$dataSpecies['evolution_chain']['url'];
+
+$evo=file_get_contents($chainUrl);
+$dataEvo=json_decode($evo, true);
+
+//$evolutionNames=
+
+var_dump($dataEvo);
 ?>
 
 
