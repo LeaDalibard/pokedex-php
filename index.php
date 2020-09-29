@@ -6,10 +6,13 @@ ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
 
-$pokemonName=$_GET['name'];
 
-if($pokemonName==''){$dataPokemon = file_get_contents("https://pokeapi.co/api/v2/pokemon/1");}
-else{$dataPokemon = file_get_contents("https://pokeapi.co/api/v2/pokemon/".$pokemonName);}
+if (isset($_GET['name'])) {
+    $pokemonName=$_GET['name'];
+}
+else{$pokemonName=1;}
+
+$dataPokemon = file_get_contents("https://pokeapi.co/api/v2/pokemon/".$pokemonName);
 
 
 $decodeData= json_decode($dataPokemon, true);
