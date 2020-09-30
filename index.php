@@ -111,7 +111,7 @@ if (isset($lengthAll)) {
 </form>
 <section id="MainPokemon">
     <h1>Pokemon information</h1>
-    <p><?php echo "Pokemon name :" . getName($pokemon); ?></p>
+    <p><?php echo "Pokemon name :" . ucwords(getName($pokemon)); ?></p>
     <p><?php echo "Pokemon Id :" . getId($pokemon); ?></p>
     <p><?php echo "Moves :" . $stringMoves; ?></p>
     <img src="<?php echo getImg($pokemon); ?>" alt="pokemon image">
@@ -119,7 +119,7 @@ if (isset($lengthAll)) {
 <section id="Evolution">
     <h1>Pokemon evolution chain</h1>
     <?php for($i = 0; $i < count($evolutionNames); $i++){
-        $evoName=getName($evolutionNames[$i]);
+        $evoName=ucwords(getName($evolutionNames[$i]));
         $evoId=getId($evolutionNames[$i]);
         $evoImg=getImg($evolutionNames[$i]);
         echo "<p>Evolution name:".$evoName."<p> Evolution Id:".$evoId."</p>"."</p>"."<img src=".$evoImg.">";
