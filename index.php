@@ -13,34 +13,39 @@ function getData($poke){
     return $decodeDataPoke;
 }
 
-//--------
+//-------- FUNCTION GET IMAGE
+
+function getImg($poke){
+    $imgPoke = getData($poke)['sprites']['front_shiny'];
+    return $imgPoke;
+}
+
 
 if (isset($_GET['name'])) {
     $pokemon = $_GET['name'];
 } else {
     $pokemon = 1;
 }
+//$dataPokemon = file_get_contents("https://pokeapi.co/api/v2/pokemon/" . $pokemon);
+//$decodeData = json_decode($dataPokemon, true);
 
-$dataPokemon = file_get_contents("https://pokeapi.co/api/v2/pokemon/" . $pokemon);
-
-
-$decodeData = json_decode($dataPokemon, true);
+var_dump(getImg($pokemon));
 
 $pokemonName = getData($pokemon)['name'];
-$pokemonId = $decodeData['id'];
-$pokemonImg = $decodeData['sprites']['front_shiny'];
-
+$pokemonId = getData($pokemon)['id'];
+$pokemonImg = getData($pokemon)['sprites']['front_shiny'];
+var_dump($pokemonImg);
 //------------------- GET 4 RANDOM MOVES -----------------------------
 
 $randomMove = array();
 $maxMove = 4;
 //$pokemonMove=$decodeData['moves'][$randomNumber]['move']['name'];
-if (count($decodeData['moves']) < $maxMove) {
-    $numberMove = count($decodeData['moves']);
+if (count(getData($pokemon)['moves']) < $maxMove) {
+    $numberMove = count(getData($pokemon)['moves']);
 } else($numberMove = $maxMove);
 for ($i = 0; $i < $numberMove; $i++) {
-    $randomNumber = rand(0, count($decodeData['moves']) - 1);
-    array_push($randomMove, $decodeData['moves'][$randomNumber]['move']['name']);
+    $randomNumber = rand(0, count(getData($pokemon)['moves']) - 1);
+    array_push($randomMove, getData($pokemon)['moves'][$randomNumber]['move']['name']);
 }
 
 $uniqueMoves = array_unique($randomMove);
@@ -84,10 +89,9 @@ if (isset($lengthAll)) {
 
 //-------------------GET THE DATA FROM THE POKEMON FROM EVOLUTION -----------------------------
 
-
-
 $test=getData($evolutionNames[0]);
-var_dump($test);
+
+//var_dump($test);
 
 //var_dump($dataEvo);
 //var_dump(count($lengthAll));
@@ -112,7 +116,7 @@ var_dump($test);
     <p><?php echo "Pokemon :" . $pokemonName; ?></p>
     <p><?php echo "Pokemon Id :" . $pokemonId; ?></p>
     <p><?php echo "Moves :" . $stringMoves; ?></p>
-    <img src="<?php echo $pokemonImg; ?>" alt="pokemon image">
+    <img src="<?php echo getImg($pokemon); ?>" alt="pokemon image">
 </section>
 <section id="Evolution">
 
