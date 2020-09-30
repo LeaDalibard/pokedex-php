@@ -27,6 +27,13 @@ function getId($poke){
     return $pokeId;
 }
 
+//-------- FUNCTION GET NAME
+
+function getName($poke){
+    $pokeName = getData($poke)['name'];
+    return $pokeName;
+}
+
 //________________________________
 
 if (isset($_GET['name'])) {
@@ -39,10 +46,10 @@ if (isset($_GET['name'])) {
 
 
 
-$pokemonName = getData($pokemon)['name'];
-$pokemonId = getData($pokemon)['id'];
+//$pokemonName = getData($pokemon)['name'];
+//$pokemonId = getData($pokemon)['id'];
 //$pokemonImg = getData($pokemon)['sprites']['front_shiny'];
-;
+
 //------------------- GET 4 RANDOM MOVES -----------------------------
 
 $randomMove = array();
@@ -93,16 +100,10 @@ if (isset($lengthAll)) {
     }
 }
 
-//var_dump($evolutionNames);
 
 //-------------------GET THE DATA FROM THE POKEMON FROM EVOLUTION -----------------------------
 
-$test=getData($evolutionNames[0]);
 
-//var_dump($test);
-
-//var_dump($dataEvo);
-//var_dump(count($lengthAll));
 ?>
 
 
@@ -121,7 +122,7 @@ $test=getData($evolutionNames[0]);
     <p><input type="submit" value="OK"></p>
 </form>
 <section id="MainPokemon">
-    <p><?php echo "Pokemon :" . $pokemonName; ?></p>
+    <p><?php echo "Pokemon :" . getName($pokemon); ?></p>
     <p><?php echo "Pokemon Id :" . getId($pokemon); ?></p>
     <p><?php echo "Moves :" . $stringMoves; ?></p>
     <img src="<?php echo getImg($pokemon); ?>" alt="pokemon image">
