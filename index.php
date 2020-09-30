@@ -39,11 +39,11 @@ function getName($poke){
 if (isset($_GET['name'])) {
     $pokemon = strtolower($_GET['name']);
     $patterns = array();
-    $pattern[0]=' ';
-    $pattern[1]='/[^A-Za-z0-9\-]/';
+    $patterns[0]=' ';
+    $patterns[1]='/[^A-Za-z0-9\-]/';
     $replacements = array();
-    $replacement[0]='-';
-    $replacement[1]='';
+    $replacements[0]='-';
+    $replacements[1]='';
     $pokemon = str_replace( $patterns,$replacements, $pokemon);
 
 } else {
