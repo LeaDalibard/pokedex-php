@@ -1,37 +1,36 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
 
-
 if (isset($_GET['name'])) {
-    $pokemon=$_GET['name'];
+    $pokemon = $_GET['name'];
+} else {
+    $pokemon = 1;
 }
-else{$pokemon=1;}
 
-$dataPokemon = file_get_contents("https://pokeapi.co/api/v2/pokemon/".$pokemon);
+$dataPokemon = file_get_contents("https://pokeapi.co/api/v2/pokemon/" . $pokemon);
 
 
-$decodeData= json_decode($dataPokemon, true);
+$decodeData = json_decode($dataPokemon, true);
 
-$pokemonName=$decodeData['name'];
-$pokemonId=$decodeData['id'];
-$pokemonImg=$decodeData['sprites']['front_shiny'];
+$pokemonName = $decodeData['name'];
+$pokemonId = $decodeData['id'];
+$pokemonImg = $decodeData['sprites']['front_shiny'];
 
 //------------------- GET 4 RANDOM MOVES -----------------------------
 
-$randomMove=array();
-$maxMove=4;
+$randomMove = array();
+$maxMove = 4;
 //$pokemonMove=$decodeData['moves'][$randomNumber]['move']['name'];
-if(count($decodeData['moves'])<$maxMove){
-    $numberMove=count($decodeData['moves']);
-}
-else($numberMove=$maxMove);
+if (count($decodeData['moves']) < $maxMove) {
+    $numberMove = count($decodeData['moves']);
+} else($numberMove = $maxMove);
 for ($i = 0; $i < $numberMove; $i++) {
-    $randomNumber = rand(0, count($decodeData['moves'])-1);
+    $randomNumber = rand(0, count($decodeData['moves']) - 1);
     array_push($randomMove, $decodeData['moves'][$randomNumber]['move']['name']);
 }
 
@@ -43,39 +42,47 @@ $stringMoves = implode(", ", $uniqueMoves);
 //------------------- GET THE ALL NAMES FROM THE EVOLUTION -----------------------------
 
 //------------ 1. get the url of evolution chain
-$Species = file_get_contents("https://pokeapi.co/api/v2/pokemon-species/".$pokemon);
-$dataSpecies= json_decode($Species, true);
-$chainUrl=$dataSpecies['evolution_chain']['url'];
+$Species = file_get_contents("https://pokeapi.co/api/v2/pokemon-species/" . $pokemon);
+$dataSpecies = json_decode($Species, true);
+$chainUrl = $dataSpecies['evolution_chain']['url'];
 
 //------------ 2. extract the names from the evolution chain
-$evo=file_get_contents($chainUrl);
-$dataEvo=json_decode($evo, true);
+$evo = file_get_contents($chainUrl);
+$dataEvo = json_decode($evo, true);
 
-$evolutionNames=array($dataEvo['chain']['species']['name']);
-$lengthEvo=count($dataEvo['chain']['evolves_to']);
+$evolutionNames = array($dataEvo['chain']['species']['name']);
+$lengthEvo = count($dataEvo['chain']['evolves_to']);
 
 if (isset($dataEvo['chain']['evolves_to'][0]['evolves_to'])) {
-    $lengthAll=count($dataEvo['chain']['evolves_to'][0]['evolves_to']);
+    $lengthAll = count($dataEvo['chain']['evolves_to'][0]['evolves_to']);
 }
 
-if($lengthEvo>0){
-    for($i=0; $i<$lengthEvo;$i++){
-       array_push($evolutionNames, $dataEvo['chain']['evolves_to'][$i]['species']['name']);
-  }
+if ($lengthEvo > 0) {
+    for ($i = 0; $i < $lengthEvo; $i++) {
+        array_push($evolutionNames, $dataEvo['chain']['evolves_to'][$i]['species']['name']);
+    }
 }
 
 if (isset($lengthAll)) {
-    if($lengthAll>0){
-        for($i=0; $i<$lengthAll;$i++){
+    if ($lengthAll > 0) {
+        for ($i = 0; $i < $lengthAll; $i++) {
             array_push($evolutionNames, $dataEvo['chain']['evolves_to'][0]['evolves_to'][$i]['species']['name']);
         }
     }
 }
 
+//var_dump($evolutionNames);
 
-var_dump($evolutionNames);
+//-------------------GET THE DATA FROM THE POKEMON FROM EVOLUTION -----------------------------
 
-//-------------------END  GET THE ALL NAMES FROM THE EVOLUTION -----------------------------
+function getData($poke){
+    $dataPoke = file_get_contents("https://pokeapi.co/api/v2/pokemon/" . $poke);
+    $decodeDataPoke = json_decode($dataPoke, true);
+    return $decodeDataPoke;
+}
+
+$test=getData($evolutionNames[0]);
+var_dump($test);
 
 //var_dump($dataEvo);
 //var_dump(count($lengthAll));
@@ -93,14 +100,17 @@ var_dump($evolutionNames);
 </head>
 <body>
 <form action="index.php" method="get">
-    <p>Pokemon: <input type="text" name="name" /></p>
+    <p>Pokemon: <input type="text" name="name"/></p>
     <p><input type="submit" value="OK"></p>
 </form>
-<section>
-    <p><?php echo "Pokemon :".$pokemonName; ?></p>
-    <p><?php echo "Pokemon Id :".$pokemonId; ?></p>
-    <p><?php echo "Moves :".$stringMoves; ?></p>
+<section id="MainPokemon">
+    <p><?php echo "Pokemon :" . $pokemonName; ?></p>
+    <p><?php echo "Pokemon Id :" . $pokemonId; ?></p>
+    <p><?php echo "Moves :" . $stringMoves; ?></p>
     <img src="<?php echo $pokemonImg; ?>" alt="pokemon image">
+</section>
+<section id="Evolution">
+
 </section>
 </body>
 </html>
