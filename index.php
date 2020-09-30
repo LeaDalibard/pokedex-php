@@ -38,11 +38,15 @@ function getName($poke){
 
 if (isset($_GET['name'])) {
     $pokemon = strtolower($_GET['name']);
+    $pattern='/[^A-Za-z0-9\-]/';
+    $replacement='';
+    $pokemon = preg_replace( $pattern,$replacement, $pokemon);
 } else {
     $pokemon = 1;
 }
 
-echo $pokemon;
+var_dump($pokemon);
+
 //------------------- GET 4 RANDOM MOVES -----------------------------
 
 $randomMove = array();
@@ -111,9 +115,9 @@ if (isset($lengthAll)) {
 </form>
 <section id="MainPokemon">
     <h1>Pokemon information</h1>
-    <p><?php echo "Pokemon name :" . ucwords(getName($pokemon)); ?></p>
-    <p><?php echo "Pokemon Id :" . getId($pokemon); ?></p>
-    <p><?php echo "Moves :" . $stringMoves; ?></p>
+    <p><?php echo "Pokemon name : " . ucwords(getName($pokemon)); ?></p>
+    <p><?php echo "Pokemon Id : " . getId($pokemon); ?></p>
+    <p><?php echo "Moves : " . $stringMoves; ?></p>
     <img src="<?php echo getImg($pokemon); ?>" alt="pokemon image">
 </section>
 <section id="Evolution">
@@ -122,7 +126,7 @@ if (isset($lengthAll)) {
         $evoName=ucwords(getName($evolutionNames[$i]));
         $evoId=getId($evolutionNames[$i]);
         $evoImg=getImg($evolutionNames[$i]);
-        echo "<p>Evolution name:".$evoName."<p> Evolution Id:".$evoId."</p>"."</p>"."<img src=".$evoImg.">";
+        echo "<p>Evolution name : ".$evoName."<p> Evolution Id : ".$evoId."</p>"."</p>"."<img src=".$evoImg.">";
     }
     ?>
 
