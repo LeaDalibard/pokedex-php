@@ -41,14 +41,7 @@ if (isset($_GET['name'])) {
 } else {
     $pokemon = 1;
 }
-//$dataPokemon = file_get_contents("https://pokeapi.co/api/v2/pokemon/" . $pokemon);
-//$decodeData = json_decode($dataPokemon, true);
 
-
-
-//$pokemonName = getData($pokemon)['name'];
-//$pokemonId = getData($pokemon)['id'];
-//$pokemonImg = getData($pokemon)['sprites']['front_shiny'];
 
 //------------------- GET 4 RANDOM MOVES -----------------------------
 
@@ -65,8 +58,6 @@ for ($i = 0; $i < $numberMove; $i++) {
 
 $uniqueMoves = array_unique($randomMove);
 $stringMoves = implode(", ", $uniqueMoves);
-//var_dump($uniqueMoves);
-//echo $stringMoves;
 
 //------------------- GET THE ALL NAMES FROM THE EVOLUTION -----------------------------
 
@@ -100,10 +91,6 @@ if (isset($lengthAll)) {
     }
 }
 
-var_dump($evolutionNames);
-
-//-------------------DISPLAY THE DATA FROM THE POKEMON EVOLUTION -----------------------------
-
 
 ?>
 
@@ -135,7 +122,7 @@ var_dump($evolutionNames);
         $evoName=getName($evolutionNames[$i]);
         $evoId=getId($evolutionNames[$i]);
         $evoImg=getImg($evolutionNames[$i]);
-        echo "<p>".$evoId."</p>"."<p>".$evoName."</p>"."<img src=".$evoImg.">";
+        echo "<p>Evolution name:".$evoName."<p> Evolution Id:".$evoId."</p>"."</p>"."<img src=".$evoImg.">";
     }
     ?>
 
