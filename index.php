@@ -37,12 +37,12 @@ function getName($poke){
 //________________________________
 
 if (isset($_GET['name'])) {
-    $pokemon = $_GET['name'];
+    $pokemon = strtolower($_GET['name']);
 } else {
     $pokemon = 1;
 }
 
-
+echo $pokemon;
 //------------------- GET 4 RANDOM MOVES -----------------------------
 
 $randomMove = array();
