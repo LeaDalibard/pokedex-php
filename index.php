@@ -104,12 +104,6 @@ var_dump($evolutionNames);
 
 //-------------------DISPLAY THE DATA FROM THE POKEMON EVOLUTION -----------------------------
 
-for($i = 0; $i < count($evolutionNames); $i++){
-   $evoName=getName($evolutionNames[$i]);
-   $evoId=getId($evolutionNames[$i]);
-    $evoImg=getImg($evolutionNames[$i]);
-   echo "<p>".$evoId."</p>"."<p>".$evoName."</p>"."<img src=".$evoImg.">";
-}
 
 ?>
 
@@ -129,13 +123,21 @@ for($i = 0; $i < count($evolutionNames); $i++){
     <p><input type="submit" value="OK"></p>
 </form>
 <section id="MainPokemon">
-    <p><?php echo "Pokemon :" . getName($pokemon); ?></p>
+    <h1>Pokemon information</h1>
+    <p><?php echo "Pokemon name :" . getName($pokemon); ?></p>
     <p><?php echo "Pokemon Id :" . getId($pokemon); ?></p>
     <p><?php echo "Moves :" . $stringMoves; ?></p>
     <img src="<?php echo getImg($pokemon); ?>" alt="pokemon image">
 </section>
 <section id="Evolution">
-
+    <h1>Pokemon evolution chain</h1>
+    <?php for($i = 0; $i < count($evolutionNames); $i++){
+        $evoName=getName($evolutionNames[$i]);
+        $evoId=getId($evolutionNames[$i]);
+        $evoImg=getImg($evolutionNames[$i]);
+        echo "<p>".$evoId."</p>"."<p>".$evoName."</p>"."<img src=".$evoImg.">";
+    }
+    ?>
 
 </section>
 </body>
