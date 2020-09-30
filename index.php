@@ -100,9 +100,16 @@ if (isset($lengthAll)) {
     }
 }
 
+var_dump($evolutionNames);
 
-//-------------------GET THE DATA FROM THE POKEMON FROM EVOLUTION -----------------------------
+//-------------------DISPLAY THE DATA FROM THE POKEMON EVOLUTION -----------------------------
 
+for($i = 0; $i < count($evolutionNames); $i++){
+   $evoName=getName($evolutionNames[$i]);
+   $evoId=getId($evolutionNames[$i]);
+    $evoImg=getImg($evolutionNames[$i]);
+   echo "<p>".$evoId."</p>"."<p>".$evoName."</p>"."<img src=".$evoImg.">";
+}
 
 ?>
 
@@ -128,6 +135,7 @@ if (isset($lengthAll)) {
     <img src="<?php echo getImg($pokemon); ?>" alt="pokemon image">
 </section>
 <section id="Evolution">
+
 
 </section>
 </body>
