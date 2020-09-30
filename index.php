@@ -20,6 +20,14 @@ function getImg($poke){
     return $imgPoke;
 }
 
+//-------- FUNCTION GET ID
+
+function getId($poke){
+    $pokeId = getData($poke)['id'];
+    return $pokeId;
+}
+
+//________________________________
 
 if (isset($_GET['name'])) {
     $pokemon = $_GET['name'];
@@ -29,12 +37,12 @@ if (isset($_GET['name'])) {
 //$dataPokemon = file_get_contents("https://pokeapi.co/api/v2/pokemon/" . $pokemon);
 //$decodeData = json_decode($dataPokemon, true);
 
-var_dump(getImg($pokemon));
+
 
 $pokemonName = getData($pokemon)['name'];
 $pokemonId = getData($pokemon)['id'];
-$pokemonImg = getData($pokemon)['sprites']['front_shiny'];
-var_dump($pokemonImg);
+//$pokemonImg = getData($pokemon)['sprites']['front_shiny'];
+;
 //------------------- GET 4 RANDOM MOVES -----------------------------
 
 $randomMove = array();
@@ -114,7 +122,7 @@ $test=getData($evolutionNames[0]);
 </form>
 <section id="MainPokemon">
     <p><?php echo "Pokemon :" . $pokemonName; ?></p>
-    <p><?php echo "Pokemon Id :" . $pokemonId; ?></p>
+    <p><?php echo "Pokemon Id :" . getId($pokemon); ?></p>
     <p><?php echo "Moves :" . $stringMoves; ?></p>
     <img src="<?php echo getImg($pokemon); ?>" alt="pokemon image">
 </section>
