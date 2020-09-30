@@ -41,34 +41,40 @@ function getName($poke)
 //________________________________
 
 if (isset($_GET['name'])) {
-    $pokemon = strtolower($_GET['name']);
+    $pokemon = strtolower($_GET['name']);// convert to lower case
     $patterns = array();
-    $patterns[0] = ' ';
-    $patterns[1] = '/[^A-Za-z0-9\-]/';
+    $patterns[0] = ' ';//Replace spaces by dashes part 1
+    $patterns[1] = '/[^A-Za-z0-9\-]/'; //Remove special characters part 1
     $replacements = array();
-    $replacements[0] = '-';
-    $replacements[1] = '';
+    $replacements[0] = '-';//Replace spaces by dashes part 2
+    $replacements[1] = '';//Remove special characters part 2
     $pokemon = str_replace($patterns, $replacements, $pokemon);
-    if( file_get_contents("https://pokeapi.co/api/v2/pokemon/" . $pokemon)==FALSE){echo "Please enter a correct pokemon name";$pokemon=1;}
+    if (file_get_contents("https://pokeapi.co/api/v2/pokemon/" . $pokemon) == FALSE) {
+        echo "Please enter a correct pokemon name";
+        $pokemon = 1;
+    }//checking if input is a pokemon
 } else {
     $pokemon = 1;
-}
+}//if not input go to Bulbasaur
 
 
 //------------------- GET 4 RANDOM MOVES -----------------------------
 
 $randomMove = array();
 $maxMove = 4;
-//$pokemonMove=$decodeData['moves'][$randomNumber]['move']['name'];
+
 if (count(getData($pokemon)['moves']) < $maxMove) {
     $numberMove = count(getData($pokemon)['moves']);
 } else($numberMove = $maxMove);
-for ($i = 0; $i < $numberMove; $i++) {
+
+$uniqueMoves = array();
+for ($i = 0; count($uniqueMoves) < $numberMove; $i++) {
     $randomNumber = rand(0, count(getData($pokemon)['moves']) - 1);
     array_push($randomMove, getData($pokemon)['moves'][$randomNumber]['move']['name']);
+    $uniqueMoves = array_unique($randomMove);
 }
 
-$uniqueMoves = array_unique($randomMove);
+
 $stringMoves = implode(", ", $uniqueMoves);
 
 //------------------- GET THE ALL NAMES FROM THE EVOLUTION -----------------------------
