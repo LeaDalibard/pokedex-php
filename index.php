@@ -54,18 +54,25 @@ $dataEvo=json_decode($evo, true);
 $evolutionNames=array($dataEvo['chain']['species']['name']);
 $lengthEvo=count($dataEvo['chain']['evolves_to']);
 
-$lengthAll=count($dataEvo['chain']['evolves_to'][0]['evolves_to']);
+if (isset($dataEvo['chain']['evolves_to'][0]['evolves_to'])) {
+    $lengthAll=count($dataEvo['chain']['evolves_to'][0]['evolves_to']);
+}
+
 if($lengthEvo>0){
     for($i=0; $i<$lengthEvo;$i++){
        array_push($evolutionNames, $dataEvo['chain']['evolves_to'][$i]['species']['name']);
   }
 }
 
-if($lengthAll>0){
-  for($i=0; $i<$lengthAll;$i++){
-      array_push($evolutionNames, $dataEvo['chain']['evolves_to'][0]['evolves_to'][$i]['species']['name']);
- }
+if (isset($lengthAll)) {
+    if($lengthAll>0){
+        for($i=0; $i<$lengthAll;$i++){
+            array_push($evolutionNames, $dataEvo['chain']['evolves_to'][0]['evolves_to'][$i]['species']['name']);
+        }
+    }
 }
+
+
 var_dump($evolutionNames);
 
 //-------------------END  GET THE ALL NAMES FROM THE EVOLUTION -----------------------------
