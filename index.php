@@ -7,7 +7,8 @@ error_reporting(E_ALL);
 
 //-------- FUNCTION GET DATA
 
-function getData($poke){
+function getData($poke)
+{
     $dataPoke = file_get_contents("https://pokeapi.co/api/v2/pokemon/" . $poke);
     $decodeDataPoke = json_decode($dataPoke, true);
     return $decodeDataPoke;
@@ -15,21 +16,24 @@ function getData($poke){
 
 //-------- FUNCTION GET IMAGE
 
-function getImg($poke){
+function getImg($poke)
+{
     $imgPoke = getData($poke)['sprites']['front_shiny'];
     return $imgPoke;
 }
 
 //-------- FUNCTION GET ID
 
-function getId($poke){
+function getId($poke)
+{
     $pokeId = getData($poke)['id'];
     return $pokeId;
 }
 
 //-------- FUNCTION GET NAME
 
-function getName($poke){
+function getName($poke)
+{
     $pokeName = getData($poke)['name'];
     return $pokeName;
 }
@@ -39,18 +43,17 @@ function getName($poke){
 if (isset($_GET['name'])) {
     $pokemon = strtolower($_GET['name']);
     $patterns = array();
-    $patterns[0]=' ';
-    $patterns[1]='/[^A-Za-z0-9\-]/';
+    $patterns[0] = ' ';
+    $patterns[1] = '/[^A-Za-z0-9\-]/';
     $replacements = array();
-    $replacements[0]='-';
-    $replacements[1]='';
-    $pokemon = str_replace( $patterns,$replacements, $pokemon);
-
+    $replacements[0] = '-';
+    $replacements[1] = '';
+    $pokemon = str_replace($patterns, $replacements, $pokemon);
+    if( file_get_contents("https://pokeapi.co/api/v2/pokemon/" . $pokemon)==FALSE){echo "Please enter a correct pokemon name";$pokemon=1;}
 } else {
     $pokemon = 1;
 }
 
-var_dump($pokemon);
 
 //------------------- GET 4 RANDOM MOVES -----------------------------
 
@@ -127,11 +130,11 @@ if (isset($lengthAll)) {
 </section>
 <section id="Evolution">
     <h1>Pokemon evolution chain</h1>
-    <?php for($i = 0; $i < count($evolutionNames); $i++){
-        $evoName=ucwords(getName($evolutionNames[$i]));
-        $evoId=getId($evolutionNames[$i]);
-        $evoImg=getImg($evolutionNames[$i]);
-        echo "<p>Evolution name : ".$evoName."<p> Evolution Id : ".$evoId."</p>"."</p>"."<img src=".$evoImg.">";
+    <?php for ($i = 0; $i < count($evolutionNames); $i++) {
+        $evoName = ucwords(getName($evolutionNames[$i]));
+        $evoId = getId($evolutionNames[$i]);
+        $evoImg = getImg($evolutionNames[$i]);
+        echo "<p>Evolution name : " . $evoName . "<p> Evolution Id : " . $evoId . "</p>" . "</p>" . "<img src=" . $evoImg . ">";
     }
     ?>
 
