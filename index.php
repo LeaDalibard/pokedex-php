@@ -5,6 +5,15 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
+//-------- FUNCTION GET DATA
+
+function getData($poke){
+    $dataPoke = file_get_contents("https://pokeapi.co/api/v2/pokemon/" . $poke);
+    $decodeDataPoke = json_decode($dataPoke, true);
+    return $decodeDataPoke;
+}
+
+//--------
 
 if (isset($_GET['name'])) {
     $pokemon = $_GET['name'];
@@ -17,7 +26,7 @@ $dataPokemon = file_get_contents("https://pokeapi.co/api/v2/pokemon/" . $pokemon
 
 $decodeData = json_decode($dataPokemon, true);
 
-$pokemonName = $decodeData['name'];
+$pokemonName = getData($pokemon)['name'];
 $pokemonId = $decodeData['id'];
 $pokemonImg = $decodeData['sprites']['front_shiny'];
 
@@ -75,11 +84,7 @@ if (isset($lengthAll)) {
 
 //-------------------GET THE DATA FROM THE POKEMON FROM EVOLUTION -----------------------------
 
-function getData($poke){
-    $dataPoke = file_get_contents("https://pokeapi.co/api/v2/pokemon/" . $poke);
-    $decodeDataPoke = json_decode($dataPoke, true);
-    return $decodeDataPoke;
-}
+
 
 $test=getData($evolutionNames[0]);
 var_dump($test);
