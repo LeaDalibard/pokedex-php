@@ -46,8 +46,11 @@ $chainUrl=$dataSpecies['evolution_chain']['url'];
 $evo=file_get_contents($chainUrl);
 $dataEvo=json_decode($evo, true);
 
-//$evolutionNames=
+$evolutionNames=$dataEvo['chain']['species']['name'];
 
+$lengthEvo=count($dataEvo['chain']['evolves_to']);
+
+var_dump($lengthEvo);
 var_dump($dataEvo);
 ?>
 
