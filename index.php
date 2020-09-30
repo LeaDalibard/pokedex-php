@@ -75,7 +75,7 @@ for ($i = 0; count($uniqueMoves) < $numberMove; $i++) {
 }
 
 
-$stringMoves = implode(", ", $uniqueMoves);
+$stringMoves = implode(", ", $uniqueMoves);// turning array to string with spaces and coma in between
 
 //------------------- GET THE ALL NAMES FROM THE EVOLUTION -----------------------------
 
@@ -90,6 +90,7 @@ $dataEvo = json_decode($evo, true);
 
 $evolutionNames = array($dataEvo['chain']['species']['name']);
 $lengthEvo = count($dataEvo['chain']['evolves_to']);
+
 
 if (isset($dataEvo['chain']['evolves_to'][0]['evolves_to'])) {
     $lengthAll = count($dataEvo['chain']['evolves_to'][0]['evolves_to']);
@@ -143,7 +144,10 @@ if (isset($lengthAll)) {
         echo "<p>Evolution name : " . $evoName . "<p> Evolution Id : " . $evoId . "</p>" . "</p>" . "<img src=" . $evoImg . ">";
     }
     ?>
-
 </section>
+<form action="index.php" method="get">
+    <p><input type="button" value="Previous"></p>
+    <p><input type="button" value="Next"></p>
+</form>
 </body>
 </html>
