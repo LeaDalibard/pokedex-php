@@ -21,6 +21,7 @@ $pokemonName=$decodeData['name'];
 $pokemonId=$decodeData['id'];
 $pokemonImg=$decodeData['sprites']['front_shiny'];
 
+//------------------- GET 4 RANDOM MOVES -----------------------------
 
 $randomMove=array();
 $maxMove=4;
@@ -39,19 +40,38 @@ $stringMoves = implode(", ", $uniqueMoves);
 //var_dump($uniqueMoves);
 //echo $stringMoves;
 
+//------------------- GET THE ALL NAMES FROM THE EVOLUTION -----------------------------
+
+//------------ 1. get the url of evolution chain
 $Species = file_get_contents("https://pokeapi.co/api/v2/pokemon-species/".$pokemon);
 $dataSpecies= json_decode($Species, true);
 $chainUrl=$dataSpecies['evolution_chain']['url'];
 
+//------------ 2. extract the names from the evolution chain
 $evo=file_get_contents($chainUrl);
 $dataEvo=json_decode($evo, true);
 
-$evolutionNames=$dataEvo['chain']['species']['name'];
-
+$evolutionNames=array($dataEvo['chain']['species']['name']);
 $lengthEvo=count($dataEvo['chain']['evolves_to']);
 
-var_dump($lengthEvo);
-var_dump($dataEvo);
+$lengthAll=count($dataEvo['chain']['evolves_to'][0]['evolves_to']);
+if($lengthEvo>0){
+    for($i=0; $i<$lengthEvo;$i++){
+       array_push($evolutionNames, $dataEvo['chain']['evolves_to'][$i]['species']['name']);
+  }
+}
+
+if($lengthAll>0){
+  for($i=0; $i<$lengthAll;$i++){
+      array_push($evolutionNames, $dataEvo['chain']['evolves_to'][0]['evolves_to'][$i]['species']['name']);
+ }
+}
+var_dump($evolutionNames);
+
+//-------------------END  GET THE ALL NAMES FROM THE EVOLUTION -----------------------------
+
+//var_dump($dataEvo);
+//var_dump(count($lengthAll));
 ?>
 
 
