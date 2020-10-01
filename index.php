@@ -138,6 +138,7 @@ echo $pokemon;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_POST['previous'])) {
+        $pokemon=$_POST['name'];
         $previousPokemon = getDataSpecies($pokemon)['evolves_from_species'];
         if ($previousPokemon == null) {
             echo "This is the first pokemon of the evolution, press next to see its evolution.";
@@ -173,7 +174,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 <form action="index.php" method="post">
-    <p>Pokemon: <input type="text" name="name"/></p>
+    <p>Pokemon: <input type="text" name="<?php echo isset($_POST['name']) ? htmlspecialchars($_POST['name'], ENT_QUOTES) : 'name'; ?>"/></p>
     <p><input type="submit" name="submit" value="OK"></p>
     <p><input type="submit" name="submit2" value="previous"></p>
 
