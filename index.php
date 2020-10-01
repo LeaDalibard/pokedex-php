@@ -151,24 +151,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 //____________ GET NEXT EVOLUTION
 
 var_dump($evolutionNames);
-//if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-//
-//    if (isset($_POST['next'])) {
-//        if (isset($_POST['name'])){ $pokemon = strtolower($_POST['name']);
-//        }
-//        else{$pokemon =1;}
-//        $pokemonNext=$pokemon;
-//        foreach ($evolutionNames as $key=>$value) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+   if (isset($_POST['next'])) {
+       if (isset($_POST['name'])) {
+           $pokemon = strtolower($_POST['name']);
+       } else {
+           $pokemon = 1;
+       }
+       for ($i = 0; $i <count($evolutionNames) ; $i++) {
+           if ($evolutionNames[$i] == $pokemon) {
+               if (isset($evolutionNames[$i + 1])) {
+                   $pokemonEvol = $evolutionNames[$i + 1];
+               } else {
+                   $pokemonEvol=$pokemon;
+                   echo 'This is the last pokemon of this evolution';
+               }
+           }
+       }
+       $pokemon=$pokemonEvol;
+   }
+//foreach ($evolutionNames as $key=>$value) {
 //            if ($value==$pokemon){
-//                if (isset($evolutionNames[$key+1])){$pokemonNext=$evolutionNames[$key+1];
+//               if (isset($evolutionNames[$key+1])){$pokemonNext=$evolutionNames[$key+1];
 //                     }
-//                else {echo 'This is the last pokemon of this evolution';
-//                    }
+//               else {echo 'This is the last pokemon of this evolution';
+//                   }
 //            }
-//            $pokemon=$pokemonNext;
-//        }
-//    }
-//}
+//           $pokemon=$pokemonNext;
+//       }
+//   }
+}
 
 
 ?>
