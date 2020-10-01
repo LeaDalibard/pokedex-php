@@ -212,23 +212,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </section>
 
 <section class="MainPokemon">
-    <h1>Pokemon information</h1>
+    <h2>Pokemon information</h2>
     <p><?php echo "Pokemon name : " . ucwords(getName($pokemon)); ?></p>
     <p><?php echo "Pokemon Id : " . getId($pokemon); ?></p>
     <p><?php echo "Moves : " . $stringMoves; ?></p>
     <img src="<?php echo getImg($pokemon); ?>" alt="pokemon image">
 </section>
 <section class="Evolution">
-    <h1>Pokemon evolution chain</h1>
+    <h2>Pokemon evolution chain</h2>
+    <div class="card-group">
     <?php for ($i = 0;
                $i < count($evolutionNames);
                $i++) {
         $evoName = ucwords(getName($evolutionNames[$i]));
         $evoId = getId($evolutionNames[$i]);
         $evoImg = getImg($evolutionNames[$i]);
-        echo "<p>Evolution name : " . $evoName . "<p> Evolution Id : " . $evoId . "</p>" . "</p>" . "<img src=" . $evoImg . ">";
+        echo " <div class='card-body'><p class='card-text'>Evolution name : " . $evoName . "</p> " ."<p class='card-text'> Evolution Id : " . $evoId . "</p>" . "<img src=" . $evoImg . "></div>";
     }
     ?>
+    </div>
 </section>
 </section>
 </section>
