@@ -138,13 +138,13 @@ echo $pokemon;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_POST['previous'])) {
-        $pokemon=$_POST['name'];
+        if (isset($_POST['name'])){ $pokemon = strtolower($_POST['name']);
+        }
+        else{$pokemon =1;}
         $previousPokemon = getDataSpecies($pokemon)['evolves_from_species'];
-        if ($previousPokemon == null) {
-            echo "This is the first pokemon of the evolution, press next to see its evolution.";
-        } else {
-            $pokemonName = getDataSpecies($pokemon)['evolves_from_species']['name'];
-            echo $pokemonName;
+        if ($previousPokemon==null){echo "This is the first pokemon of the evolution, press next to see its evolution.";}
+        else{ $pokemonName=getDataSpecies($pokemon)['evolves_from_species']['name'];
+            $pokemon=$pokemonName;
         }
     }
 }
@@ -174,9 +174,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 <form action="index.php" method="post">
-    <p>Pokemon: <input type="text" name="<?php echo isset($_POST['name']) ? htmlspecialchars($_POST['name'], ENT_QUOTES) : 'name'; ?>"/></p>
+    <p>Pokemon: <input type="text" name="name" value="<?php echo $_POST['name'] ?? ''; ?>"/></p>
     <p><input type="submit" name="submit" value="OK"></p>
-    <p><input type="submit" name="submit2" value="previous"></p>
+    <p><input type="submit" name="previous" value="previous"></p>
 
 </form>
 
