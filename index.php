@@ -194,24 +194,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Pokedex</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/97e98690fe.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
 <body>
-<form action="index.php" method="post">
-    <p>Pokemon: <input type="text" name="name" value="<?php echo $_POST['name'] ?? ''; ?>"/></p>
-    <p><input type="submit" name="submit" value="OK"></p>
-    <p><input type="submit" name="previous" value="Previous evolution"></p>
-    <p><input type="submit" name="next" value="Next evolution"></p>
+<section class="container">
+<section class="content text-center">
 
-</form>
+    <section class="search">
+        <form action="index.php" method="post">
+            <p>Pokemon: <input type="text" name="name" value="<?php echo $_POST['name'] ?? ''; ?>"/></p>
+            <p><input type="submit" name="submit" value="OK"></p>
+            <p><input type="submit" name="previous" value="Previous evolution"></p>
+            <p><input type="submit" name="next" value="Next evolution"></p>
+        </form>
+    </section>
 
-<section id="MainPokemon">
+<section class="MainPokemon">
     <h1>Pokemon information</h1>
     <p><?php echo "Pokemon name : " . ucwords(getName($pokemon)); ?></p>
     <p><?php echo "Pokemon Id : " . getId($pokemon); ?></p>
     <p><?php echo "Moves : " . $stringMoves; ?></p>
     <img src="<?php echo getImg($pokemon); ?>" alt="pokemon image">
 </section>
-<section id="Evolution">
+<section class="Evolution">
     <h1>Pokemon evolution chain</h1>
     <?php for ($i = 0;
                $i < count($evolutionNames);
@@ -223,6 +230,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     ?>
 </section>
-
+</section>
+</section>
 </body>
 </html>
