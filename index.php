@@ -151,25 +151,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 //____________ GET NEXT EVOLUTION
 
 var_dump($evolutionNames);
+//if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//
+//    if (isset($_POST['next'])) {
+//        if (isset($_POST['name'])){ $pokemon = strtolower($_POST['name']);
+//        }
+//        else{$pokemon =1;}
+//        $pokemonNext=$pokemon;
+//        foreach ($evolutionNames as $key=>$value) {
+//            if ($value==$pokemon){
+//                if (isset($evolutionNames[$key+1])){$pokemonNext=$evolutionNames[$key+1];
+//                     }
+//                else {echo 'This is the last pokemon of this evolution';
+//                    }
+//            }
+//            $pokemon=$pokemonNext;
+//        }
+//    }
+//}
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    if (isset($_POST['next'])) {
-        if (isset($_POST['name'])){ $pokemon = strtolower($_POST['name']);
-        }
-        else{$pokemon =1;}
-        $pokemonNext=$pokemon;
-        foreach ($evolutionNames as $key=>$value) {
-            if ($value==$pokemon){
-                if (isset($evolutionNames[$key+1])){$pokemonNext=$evolutionNames[$key+1];
-                     }
-                else {echo 'This is the last pokemon of this evolution';
-                    }
-            }
-            $pokemon=$pokemonNext;
-        }
-    }
-}
 
 ?>
 
