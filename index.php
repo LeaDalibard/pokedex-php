@@ -132,6 +132,13 @@ if (isset($lengthAll)) {
         }
     }
 }
+
+foreach ($evolutionNames as $key=>$value) {
+    if ($value==$pokemon){$pokemonnext=$evolutionNames[$key+1];
+    echo $pokemonnext;}
+}
+
+
 echo $pokemon;
 //____________ GET PREVIOUS EVOLUTION
 
@@ -148,16 +155,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-//
-//        $previousPokemon = getDataSpecies($pokemon)['evolves_from_species'];
-//        // if ($previousPokemon==null){echo "This is the first pokemon of the evolution, press next to see its evolution.";}
-//        //        else{
-//        //            $pokemonName=getDataSpecies($pokemon)['evolves_from_species']['name'];
-//        //            echo $pokemonName;
-//        //        }
-//        //    }
-//        echo $previousPokemon;
-//    }
+//____________ GET NEXT EVOLUTION
 
 
 ?>
@@ -177,6 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <p>Pokemon: <input type="text" name="name" value="<?php echo $_POST['name'] ?? ''; ?>"/></p>
     <p><input type="submit" name="submit" value="OK"></p>
     <p><input type="submit" name="previous" value="previous"></p>
+    <p><input type="submit" name="next" value="next"></p>
 
 </form>
 
