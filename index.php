@@ -202,12 +202,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <section class="container">
 <section class="content text-center">
 
-    <section class="search">
+    <section class="search pt-5">
         <form action="index.php" method="post">
             <p>Pokemon: <input type="text" name="name" value="<?php echo $_POST['name'] ?? ''; ?>"/></p>
-            <p><input type="submit" name="submit" value="OK"></p>
-            <p><input type="submit" name="previous" value="Previous evolution"></p>
-            <p><input type="submit" name="next" value="Next evolution"></p>
+            <p><input type="submit" name="submit" class="btn btn-primary" value="OK"></p>
+            <p><input type="submit" class="btn btn-outline-light m-3" name="previous" value="Previous evolution"><input type="submit" class="btn btn-outline-light m-3" name="next" value="Next evolution"></p>
         </form>
     </section>
 
