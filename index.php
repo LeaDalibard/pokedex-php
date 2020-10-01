@@ -14,6 +14,16 @@ function getData($poke)
     return $decodeDataPoke;
 }
 
+//-------- FUNCTION GET DATA SPECIES
+
+function getDataSpecies($poke)
+{
+    $dataPoke = file_get_contents("https://pokeapi.co/api/v2/pokemon-species/" . $poke);
+    $decodeDataPoke = json_decode($dataPoke, true);
+    return $decodeDataPoke;
+}
+
+
 //-------- FUNCTION GET IMAGE
 
 function getImg($poke)
@@ -39,16 +49,9 @@ function getName($poke)
 }
 
 
-
-//____________ PREVIOUS BUTTON
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    if (isset($_POST['previous'])) {
-        echo 'test';
-    }
-}
-
 //________________________________
+$pokemon = 1;
+
 if (isset($_GET['name'])) {
     $pokemon = strtolower($_GET['name']);// convert to lower case
     $patterns = array();
@@ -65,6 +68,18 @@ if (isset($_GET['name'])) {
 } else {
     $pokemon = 1;
 }//if not input go to Bulbasaur
+
+//____________ GET PREVIOUS EVOLUTION
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    if (isset($_GET['previous'])) {
+        $previousPokemon = getDataSpecies($pokemon)['evolves_from_species']['name'];
+        var_dump($previousPokemon);
+    }
+}
+
+//$previousPokemon = getDataSpecies($pokemon)['evolves_from_species']['name'];
+//var_dump($previousPokemon);
 
 
 //------------------- GET 4 RANDOM MOVES -----------------------------
@@ -89,9 +104,13 @@ $stringMoves = implode(", ", $uniqueMoves);// turning array to string with space
 //------------------- GET THE ALL NAMES FROM THE EVOLUTION -----------------------------
 
 //------------ 1. get the url of evolution chain
-$Species = file_get_contents("https://pokeapi.co/api/v2/pokemon-species/" . $pokemon);
-$dataSpecies = json_decode($Species, true);
-$chainUrl = $dataSpecies['evolution_chain']['url'];
+
+getDataSpecies($pokemon);
+$chainUrl = getDataSpecies($pokemon)['evolution_chain']['url'];
+//$Species = file_get_contents("https://pokeapi.co/api/v2/pokemon-species/" . $pokemon);
+//$dataSpecies = json_decode($Species, true);
+//$chainUrl = $dataSpecies['evolution_chain']['url'];
+
 
 //------------ 2. extract the names from the evolution chain
 $evo = file_get_contents($chainUrl);
@@ -136,6 +155,7 @@ if (isset($lengthAll)) {
 <form action="index.php" method="get">
     <p>Pokemon: <input type="text" name="name"/></p>
     <p><input type="submit" value="OK"></p>
+    <p><input type="submit" name="previous" value="previous"></p>
 </form>
 <section id="MainPokemon">
     <h1>Pokemon information</h1>
@@ -154,8 +174,6 @@ if (isset($lengthAll)) {
     }
     ?>
 </section>
-<form action="index.php" method="post">
-    <p><input type="submit" name="previous" value="previous"></p>
-</form>
+
 </body>
 </html>
