@@ -134,18 +134,35 @@ if (isset($lengthAll)) {
 }
 
 //____________ GET PREVIOUS EVOLUTION
+// if (isset($_POST['name'])){ $pokemon = strtolower($_POST['name']);
+//        }
+//        else{$pokemon =1;}
+//        $previousPokemon = getDataSpecies($pokemon)['evolves_from_species'];
+//        if ($previousPokemon==null){echo "This is the first pokemon of the evolution, press next to see its evolution.";}
+//        else{ $pokemonName=getDataSpecies($pokemon)['evolves_from_species']['name'];
+//            $pokemon=$pokemonName;
+//        }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_POST['previous'])) {
-        if (isset($_POST['name'])){ $pokemon = strtolower($_POST['name']);
+        if (isset($_POST['name'])) {
+            $pokemon = strtolower($_POST['name']);
+        } else {
+            $pokemon = 1;
         }
-        else{$pokemon =1;}
-        $previousPokemon = getDataSpecies($pokemon)['evolves_from_species'];
-        if ($previousPokemon==null){echo "This is the first pokemon of the evolution, press next to see its evolution.";}
-        else{ $pokemonName=getDataSpecies($pokemon)['evolves_from_species']['name'];
-            $pokemon=$pokemonName;
+        for ($i = 0; $i <count($evolutionNames) ; $i++) {
+            if ($evolutionNames[$i] == $pokemon) {
+                if (isset($evolutionNames[$i - 1])) {
+                    $pokemonPrev = $evolutionNames[$i - 1];
+                } else {
+                    $pokemonPrev=$pokemon;
+                    echo 'This is the first pokemon of this evolution';
+                }
+            }
         }
+        $pokemon=$pokemonPrev;
+        $_POST['name']=$pokemon;
     }
 }
 //____________ GET NEXT EVOLUTION
@@ -170,6 +187,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
            }
        }
        $pokemon=$pokemonEvol;
+       $_POST['name']=$pokemon;
    }
 //foreach ($evolutionNames as $key=>$value) {
 //            if ($value==$pokemon){
