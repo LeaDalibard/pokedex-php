@@ -174,13 +174,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 <form action="index.php" method="post">
     <p>Pokemon: <input type="text" name="name"/></p>
-    <p><input type="submit" value="OK"></p>
-</form>
+    <p><input type="submit" name="submit" value="OK"></p>
+    <p><input type="submit" name="submit2" value="previous"></p>
 
-<form action="index.php" method="post">
-    <p><input type="submit" name="previous" value="previous"></p>
 </form>
-
 
 <section id="MainPokemon">
     <h1>Pokemon information</h1>
