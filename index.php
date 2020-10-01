@@ -50,10 +50,15 @@ function getName($poke)
 
 
 //________________________________
-$pokemon = 1;
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    if (isset($_GET['name'])) {
-        $pokemon = strtolower($_GET['name']);// convert to lower case
+
+if(!empty($_POST['name']))
+{
+    $pokemon = 1;
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['name'])) {
+        $pokemon = strtolower($_POST['name']);// convert to lower case
         $patterns = array();
         $patterns[0] = ' ';//Replace spaces by dashes part 1
         $patterns[1] = '/[^A-Za-z0-9\-]/'; //Remove special characters part 1
@@ -69,28 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $pokemon = 1;
     }//if not input go to Bulbasaur
 }
-
-
-//____________ GET PREVIOUS EVOLUTION
-
-//if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-//    if (isset($_GET['previous'])) {
-//
-//        $previousPokemon = getDataSpecies($pokemon)['evolves_from_species'];
-//        // if ($previousPokemon==null){echo "This is the first pokemon of the evolution, press next to see its evolution.";}
-//        //        else{
-//        //            $pokemonName=getDataSpecies($pokemon)['evolves_from_species']['name'];
-//        //            echo $pokemonName;
-//        //        }
-//        //    }
-//        echo $previousPokemon;
-//    }
-//}
-
-//$previousPokemon = getDataSpecies($pokemon)['evolves_from_species'];
-//var_dump($previousPokemon);
-$previousPokemon = getDataSpecies($pokemon)['evolves_from_species'];
-echo $previousPokemon;
+else{$pokemon = 1;}
 
 
 //------------------- GET 4 RANDOM MOVES -----------------------------
@@ -148,6 +132,31 @@ if (isset($lengthAll)) {
         }
     }
 }
+echo $pokemon;
+//____________ GET PREVIOUS EVOLUTION
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    if (isset($_POST['previous'])) {
+        $previousPokemon = getDataSpecies($pokemon)['evolves_from_species'];
+        if ($previousPokemon == null) {
+            echo "This is the first pokemon of the evolution, press next to see its evolution.";
+        } else {
+            $pokemonName = getDataSpecies($pokemon)['evolves_from_species']['name'];
+            echo $pokemonName;
+        }
+    }
+}
+//
+//        $previousPokemon = getDataSpecies($pokemon)['evolves_from_species'];
+//        // if ($previousPokemon==null){echo "This is the first pokemon of the evolution, press next to see its evolution.";}
+//        //        else{
+//        //            $pokemonName=getDataSpecies($pokemon)['evolves_from_species']['name'];
+//        //            echo $pokemonName;
+//        //        }
+//        //    }
+//        echo $previousPokemon;
+//    }
 
 
 ?>
@@ -163,9 +172,12 @@ if (isset($lengthAll)) {
     <title>Pokedex</title>
 </head>
 <body>
-<form action="index.php" method="get">
+<form action="index.php" method="post">
     <p>Pokemon: <input type="text" name="name"/></p>
     <p><input type="submit" value="OK"></p>
+</form>
+
+<form action="index.php" method="post">
     <p><input type="submit" name="previous" value="previous"></p>
 </form>
 
@@ -179,7 +191,9 @@ if (isset($lengthAll)) {
 </section>
 <section id="Evolution">
     <h1>Pokemon evolution chain</h1>
-    <?php for ($i = 0; $i < count($evolutionNames); $i++) {
+    <?php for ($i = 0;
+               $i < count($evolutionNames);
+               $i++) {
         $evoName = ucwords(getName($evolutionNames[$i]));
         $evoId = getId($evolutionNames[$i]);
         $evoImg = getImg($evolutionNames[$i]);
