@@ -38,13 +38,17 @@ function getName($poke)
     return $pokeName;
 }
 
-//________________________________
-//$nameErr="";
-//if ($_SERVER["REQUEST_METHOD"] == "GET") {
-//if (empty($_GET["name"])) {
-//    $nameErr = "Pokemon name is required";
-//}
 
+
+//____________ PREVIOUS BUTTON
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    if (isset($_POST['previous'])) {
+        echo 'test';
+    }
+}
+
+//________________________________
 if (isset($_GET['name'])) {
     $pokemon = strtolower($_GET['name']);// convert to lower case
     $patterns = array();
@@ -150,8 +154,8 @@ if (isset($lengthAll)) {
     }
     ?>
 </section>
-<form action="previous.php" method="get">
-    <p><input type="button" value="Previous"></p>
+<form action="index.php" method="post">
+    <p><input type="submit" name="previous" value="previous"></p>
 </form>
 </body>
 </html>
