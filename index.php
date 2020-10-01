@@ -146,7 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $pokemonPrev = $evolutionNames[$i - 1];
                 } else {
                     $pokemonPrev=$pokemon;
-                    echo 'This is the first pokemon of this evolution';
+                    echo '<script>alert("This is the first pokemon of this evolution")</script>';
                 }
             }
         }
@@ -171,7 +171,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                    $pokemonEvol= $evolutionNames[$i + 1];
                } else {
                    $pokemonEvol=$pokemon;
-                   echo 'This is the last pokemon of this evolution';
+                   echo '<script>alert("This is the last pokemon of this evolution")</script>';
                }
            }
        }
@@ -198,8 +198,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <form action="index.php" method="post">
     <p>Pokemon: <input type="text" name="name" value="<?php echo $_POST['name'] ?? ''; ?>"/></p>
     <p><input type="submit" name="submit" value="OK"></p>
-    <p><input type="submit" name="previous" value="previous"></p>
-    <p><input type="submit" name="next" value="next"></p>
+    <p><input type="submit" name="previous" value="Previous evolution"></p>
+    <p><input type="submit" name="next" value="Next evolution"></p>
 
 </form>
 
