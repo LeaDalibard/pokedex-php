@@ -133,13 +133,6 @@ if (isset($lengthAll)) {
     }
 }
 
-foreach ($evolutionNames as $key=>$value) {
-    if ($value==$pokemon){$pokemonnext=$evolutionNames[$key+1];
-    echo $pokemonnext;}
-}
-
-
-echo $pokemon;
 //____________ GET PREVIOUS EVOLUTION
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -157,6 +150,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 //____________ GET NEXT EVOLUTION
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    if (isset($_POST['next'])) {
+        if (isset($_POST['name'])){ $pokemon = strtolower($_POST['name']);
+        }
+        else{$pokemon =1;}
+        foreach ($evolutionNames as $key=>$value) {
+            if ($value==$pokemon){
+                if (isset($evolutionNames[$key+1])){$pokemonnext=$evolutionNames[$key+1];
+                     $pokemon=$pokemonnext;}
+                else {echo 'This is the last pokemon of this evolution';}
+            }
+        }
+
+    }
+}
 
 ?>
 
