@@ -102,9 +102,7 @@ $stringMoves = implode(", ", $uniqueMoves);// turning array to string with space
 
 getDataSpecies($pokemon);
 $chainUrl = getDataSpecies($pokemon)['evolution_chain']['url'];
-//$Species = file_get_contents("https://pokeapi.co/api/v2/pokemon-species/" . $pokemon);
-//$dataSpecies = json_decode($Species, true);
-//$chainUrl = $dataSpecies['evolution_chain']['url'];
+
 
 
 //------------ 2. extract the names from the evolution chain
@@ -133,15 +131,6 @@ if (isset($lengthAll)) {
     }
 }
 
-//____________ GET PREVIOUS EVOLUTION
-// if (isset($_POST['name'])){ $pokemon = strtolower($_POST['name']);
-//        }
-//        else{$pokemon =1;}
-//        $previousPokemon = getDataSpecies($pokemon)['evolves_from_species'];
-//        if ($previousPokemon==null){echo "This is the first pokemon of the evolution, press next to see its evolution.";}
-//        else{ $pokemonName=getDataSpecies($pokemon)['evolves_from_species']['name'];
-//            $pokemon=$pokemonName;
-//        }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -152,7 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $pokemon = 1;
         }
         for ($i = 0; $i <count($evolutionNames) ; $i++) {
-            if ($evolutionNames[$i] == $pokemon) {
+            if ($evolutionNames[$i] == getName($pokemon)) {
                 if (isset($evolutionNames[$i - 1])) {
                     $pokemonPrev = $evolutionNames[$i - 1];
                 } else {
@@ -167,7 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 //____________ GET NEXT EVOLUTION
 
-var_dump($evolutionNames);
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
    if (isset($_POST['next'])) {
@@ -177,9 +166,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
            $pokemon = 1;
        }
        for ($i = 0; $i <count($evolutionNames) ; $i++) {
-           if ($evolutionNames[$i] == $pokemon) {
+           if ($evolutionNames[$i] == getName($pokemon)) {
                if (isset($evolutionNames[$i + 1])) {
-                   $pokemonEvol = $evolutionNames[$i + 1];
+                   $pokemonEvol= $evolutionNames[$i + 1];
                } else {
                    $pokemonEvol=$pokemon;
                    echo 'This is the last pokemon of this evolution';
@@ -189,16 +178,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
        $pokemon=$pokemonEvol;
        $_POST['name']=$pokemon;
    }
-//foreach ($evolutionNames as $key=>$value) {
-//            if ($value==$pokemon){
-//               if (isset($evolutionNames[$key+1])){$pokemonNext=$evolutionNames[$key+1];
-//                     }
-//               else {echo 'This is the last pokemon of this evolution';
-//                   }
-//            }
-//           $pokemon=$pokemonNext;
-//       }
-//   }
+
 }
 
 
