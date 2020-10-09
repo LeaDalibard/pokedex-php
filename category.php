@@ -53,34 +53,35 @@ if($number_pokemon%$page_length==0){
 else{
     $number_of_pages=intval($number_pokemon/$page_length)+1;
 }
-echo $number_of_pages;
-$_SESSION["page"] = 1;
+$number_next=$number_of_pages+1;
 
+if (isset ($_SESSION["page"])){
+    $page=$_SESSION["page"];
+}else{$page=1;}
 
-
-if (isset ($_GET['page'])){
-    if ($_GET['page'] == 0){
-        $_SESSION["page"] = $_SESSION["page"]-1;
-        echo $_SESSION["page"];
+if (isset ($_GET['page'])) {
+    if ($_GET['page'] == 0) {
+        if($page==1){ $_SESSION["page"] = $page;
+        }
+        else{
+            $_SESSION["page"] = $page  - 1;
+        }
     }
-    elseif ($_GET['page'] == 1){
-        $_SESSION["page"] = 1;
-        echo $_SESSION["page"];
+    if ($_GET['page'] == $number_next) {
+        if($page==$number_of_pages){$_SESSION["page"] = $page;}
+        else{
+            $_SESSION["page"] = $page + 1;
+        }
     }
-    elseif ($_GET['page'] == 2){
-        $_SESSION["page"] = 2;
-        echo $_SESSION["page"];
-    }
-    elseif ($_GET['page'] == 3){
-        $_SESSION["page"] = 3;
-        echo $_SESSION["page"];
-    }
-    elseif ($_GET['page'] == 4)
-    {
-        $_SESSION["page"] = $_SESSION["page"]+1;
-        echo $_SESSION["page"];
+    for ($i = 1; $i < $number_of_pages; $i++) {
+        if ($_GET['page'] == $i) {
+            $_SESSION["page"] = $i;
+        }
     }
 }
+else {$_SESSION["page"] = 1;}
+
+echo $_SESSION["page"];
 
 ?>
 
@@ -101,14 +102,14 @@ if (isset ($_GET['page'])){
 <div class="container">
     <nav aria-label="Page navigation">
         <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="?page='previous'">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="?page=0">Previous</a></li>
 
-            <?php for($i=1;$i<$number_of_pages;$i++): ?>
+            <?php for($i=1;$i<$number_of_pages+1;$i++): ?>
 
             <li class="page-item"><a class="page-link" href="<?php echo "?page= " .$i; ?>"><?php echo $i; ?></a></li>
 
             <?php endfor; ?>
-            <li class="page-item"><a class="page-link" href="?page='next'">Next</a></li>
+            <li class="page-item"><a class="page-link" href="?page=<?php echo $number_next?>">Next</a></li>
         </ul>
     </nav>
     <div class="row">
