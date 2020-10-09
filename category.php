@@ -104,7 +104,7 @@ echo $_SESSION["page"];
         <ul class="pagination">
             <li class="page-item"><a class="page-link" href="?page=0">Previous</a></li>
 
-            <?php for($i=1;$i<$number_of_pages+1;$i++): ?>
+            <?php for($i=1;$i<$page_length;$i++): ?>
 
             <li class="page-item"><a class="page-link" href="<?php echo "?page= " .$i; ?>"><?php echo $i; ?></a></li>
 
@@ -113,7 +113,8 @@ echo $_SESSION["page"];
         </ul>
     </nav>
     <div class="row">
-        <?php for($i=1;$i<$page_length;$i++): ?>
+
+        <?php for($i=($_SESSION["page"]-1)*$page_length+1;$i<($_SESSION["page"]-1)*$page_length+$page_length+1;$i++): ?>
         <div class="col-3">
             <p><?php echo "Pokemon name : " . ucwords(getName($i)); ?></p>
             <p><?php echo "Pokemon Id : " . getId($i); ?></p>
