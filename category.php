@@ -45,9 +45,18 @@ function getImg($poke)
 
 //-------- FUNCTION GET PAGE
 
-$page_length=21;
-
+$page_length=20;
+$number_pokemon=248;
+if($number_pokemon%$page_length==0){
+    $number_of_pages=$number_pokemon/$page_length;
+}
+else{
+    $number_of_pages=intval($number_pokemon/$page_length)+1;
+}
+echo $number_of_pages;
 $_SESSION["page"] = 1;
+
+
 
 if (isset ($_GET['page'])){
     if ($_GET['page'] == 0){
