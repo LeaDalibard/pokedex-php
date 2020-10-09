@@ -5,6 +5,41 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
+//-------- FUNCTION GET DATA
+
+function getData($poke)
+{
+    $dataPoke = file_get_contents("https://pokeapi.co/api/v2/pokemon/" . $poke);
+    $decodeDataPoke = json_decode($dataPoke, true);
+    return $decodeDataPoke;
+}
+
+//-------- FUNCTION GET ID
+
+function getId($poke)
+{
+    $pokeId = getData($poke)['id'];
+    return $pokeId;
+}
+
+//-------- FUNCTION GET NAME
+
+function getName($poke)
+{
+    $pokeName = getData($poke)['name'];
+    return $pokeName;
+}
+
+//-------- FUNCTION GET IMAGE
+
+function getImg($poke)
+{
+    $imgPoke = getData($poke)['sprites']['front_shiny'];
+    return $imgPoke;
+}
+
+$page_length=21;
+
 
 ?>
 
@@ -23,88 +58,13 @@ error_reporting(E_ALL);
 <body>
 <div class="container">
     <div class="row">
+        <?php for($i=1;$i<$page_length;$i++): ?>
         <div class="col-3">
-
+            <p><?php echo "Pokemon name : " . ucwords(getName($i)); ?></p>
+            <p><?php echo "Pokemon Id : " . getId($i); ?></p>
+            <img src="<?php echo getImg($i); ?>" alt="pokemon image">
         </div>
-        <div class="col-3">
-            <!-- Content -->
-        </div>
-        <div class="col-3">
-            <!-- Content -->
-        </div>
-        <div class="col-3">
-            <!-- Content -->
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-3">
-            <!-- Content -->
-        </div>
-        <div class="col-3">
-            <!-- Content -->
-        </div>
-        <div class="col-3">
-            <!-- Content -->
-        </div>
-        <div class="col-3">
-            <!-- Content -->
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-3">
-            <!-- Content -->
-        </div>
-        <div class="col-3">
-            <!-- Content -->
-        </div>
-        <div class="col-3">
-            <!-- Content -->
-        </div>
-        <div class="col-3">
-            <!-- Content -->
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-3">
-            <!-- Content -->
-        </div>
-        <div class="col-3">
-            <!-- Content -->
-        </div>
-        <div class="col-3">
-            <!-- Content -->
-        </div>
-        <div class="col-3">
-            <!-- Content -->
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-3">
-            <!-- Content -->
-        </div>
-        <div class="col-3">
-            <!-- Content -->
-        </div>
-        <div class="col-3">
-            <!-- Content -->
-        </div>
-        <div class="col-3">
-            <!-- Content -->
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-3">
-            <!-- Content -->
-        </div>
-        <div class="col-3">
-            <!-- Content -->
-        </div>
-        <div class="col-3">
-            <!-- Content -->
-        </div>
-        <div class="col-3">
-            <!-- Content -->
-        </div>
+        <?php endfor; ?>
     </div>
 
 </div>
