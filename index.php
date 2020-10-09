@@ -232,6 +232,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </section>
 </section>
+    <nav>
+        <a class="nav-link text-light" href="category.php">Category</a>
+    </nav>
+
 </section>
 </body>
 </html>
