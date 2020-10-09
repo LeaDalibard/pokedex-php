@@ -101,11 +101,14 @@ if (isset ($_GET['page'])){
 <div class="container">
     <nav aria-label="Page navigation">
         <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="?page=0">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
-            <li class="page-item"><a class="page-link" href="?page=2">2</a></li>
-            <li class="page-item"><a class="page-link" href="?page=3">3</a></li>
-            <li class="page-item"><a class="page-link" href="?page=4">Next</a></li>
+            <li class="page-item"><a class="page-link" href="?page='previous'">Previous</a></li>
+
+            <?php for($i=1;$i<$number_of_pages;$i++): ?>
+
+            <li class="page-item"><a class="page-link" href="<?php echo "?page= " .$i; ?>"><?php echo $i; ?></a></li>
+
+            <?php endfor; ?>
+            <li class="page-item"><a class="page-link" href="?page='next'">Next</a></li>
         </ul>
     </nav>
     <div class="row">
