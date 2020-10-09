@@ -47,15 +47,29 @@ function getImg($poke)
 
 $page_length=21;
 
+$_SESSION["page"] = 1;
+
 if (isset ($_GET['page'])){
     if ($_GET['page'] == 0){
-       echo "previous";
+        $_SESSION["page"] = $_SESSION["page"]-1;
+        echo $_SESSION["page"];
     }
     elseif ($_GET['page'] == 1){
-        echo "page 1";
+        $_SESSION["page"] = 1;
+        echo $_SESSION["page"];
     }
     elseif ($_GET['page'] == 2){
-        echo "page 2";
+        $_SESSION["page"] = 2;
+        echo $_SESSION["page"];
+    }
+    elseif ($_GET['page'] == 3){
+        $_SESSION["page"] = 3;
+        echo $_SESSION["page"];
+    }
+    elseif ($_GET['page'] == 4)
+    {
+        $_SESSION["page"] = $_SESSION["page"]+1;
+        echo $_SESSION["page"];
     }
 }
 
